@@ -27,6 +27,8 @@
     "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
     "docker:build": "docker build -t pokemon-api .",
     "docker:run": "docker run -p 3000:3000 -d pokemon-api",
+    "docker:start": "./bin/start-db.sh",
+    "docker:stop": "./bin/stop-db.sh",
     "migrate": "node ./dist/migrate",
     "openapi-spec": "node ./dist/openapi-spec",
     "prestart": "npm run build",

@@ -3,11 +3,23 @@ import {
   PokemonAttack, PokemonDimension, PokemonEvolutionRequirement
 } from '.';
 
-@model()
+@model({
+  settings: {
+    mongodb: {
+      collection: 'pokemon'
+    },
+  },
+})
 export class Pokemon extends Entity {
   @property({
     type: 'string',
     id: true,
+    generated: true,
+  })
+  objectId?: string;
+
+  @property({
+    type: 'string',
     required: true,
   })
   id: string;

@@ -5,7 +5,7 @@ import {Pokemon, PokemonRelations} from '../models';
 
 export class PokemonRepository extends DefaultCrudRepository<
   Pokemon,
-  typeof Pokemon.prototype.id,
+  typeof Pokemon.prototype.objectId,
   PokemonRelations
   > {
   constructor(@inject('datasources.mongo') dataSource: MongoDataSource) {

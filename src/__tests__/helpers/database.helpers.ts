@@ -1,6 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-import {PokemonRepository, PokemonTypeRepository, UserRepository} from '../../repositories';
+import {
+  PokemonRepository,
+  PokemonTypeRepository,
+  UserRepository,
+} from '../../repositories';
 import {testdb} from '../fixtures/datasources/testdb.datasource';
 
 export const mockPokemonRepository = new PokemonRepository(testdb);
@@ -14,8 +18,14 @@ export async function clearDatabase() {
 }
 
 export async function setupDatabase() {
-  const samplePokemonJsonFile = path.join(__dirname, '../fixtures/sample-pokemon.json');
-  const samplePokemonJsonString = fs.readFileSync(samplePokemonJsonFile, 'utf8');
+  const samplePokemonJsonFile = path.join(
+    __dirname,
+    '../fixtures/sample-pokemon.json',
+  );
+  const samplePokemonJsonString = fs.readFileSync(
+    samplePokemonJsonFile,
+    'utf8',
+  );
   const samplePokemonArray = JSON.parse(samplePokemonJsonString);
 
   for (const samplePokemon of samplePokemonArray) {
@@ -27,8 +37,8 @@ export async function setupDatabase() {
   await mockPokemonTypeRepository.create({name: 'Fire'});
 
   await mockUserRepository.create({
-    firstName: "John",
-    lastName: "Doe",
-    favoritePokemon: ["1", "2"]
+    firstName: 'John',
+    lastName: 'Doe',
+    favoritePokemon: ['1', '2'],
   });
 }

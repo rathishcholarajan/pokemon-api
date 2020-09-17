@@ -1,4 +1,9 @@
-import {inject, lifeCycleObserver, LifeCycleObserver, ValueOrPromise} from '@loopback/core';
+import {
+  inject,
+  lifeCycleObserver,
+  LifeCycleObserver,
+  ValueOrPromise,
+} from '@loopback/core';
 import {juggler} from '@loopback/repository';
 
 const config = require('./mongo.datasource.config.json');
@@ -8,7 +13,8 @@ const config = require('./mongo.datasource.config.json');
 // gracefully. The `stop()` method is inherited from `juggler.DataSource`.
 // Learn more at https://loopback.io/doc/en/lb4/Life-cycle.html
 @lifeCycleObserver('datasource')
-export class MongoDataSource extends juggler.DataSource
+export class MongoDataSource
+  extends juggler.DataSource
   implements LifeCycleObserver {
   static dataSourceName = 'mongo';
   static readonly defaultConfig = config;

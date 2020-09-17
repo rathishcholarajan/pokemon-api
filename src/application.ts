@@ -4,12 +4,16 @@ import {RepositoryMixin, SchemaMigrationOptions} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {
   RestExplorerBindings,
-  RestExplorerComponent
+  RestExplorerComponent,
 } from '@loopback/rest-explorer';
 import {ServiceMixin} from '@loopback/service-proxy';
 import fs from 'fs';
 import path from 'path';
-import {PokemonRepository, PokemonTypeRepository, UserRepository} from './repositories';
+import {
+  PokemonRepository,
+  PokemonTypeRepository,
+  UserRepository,
+} from './repositories';
 import {MySequence} from './sequence';
 
 export {ApplicationConfig};
@@ -88,9 +92,9 @@ export class PokemonApplication extends BootMixin(
     const userRepo = await this.getRepository(UserRepository);
     await userRepo.deleteAll();
     await userRepo.create({
-      firstName: "John",
-      lastName: "Doe",
-      favoritePokemon: ["1", "10", "40", "146"]
+      firstName: 'John',
+      lastName: 'Doe',
+      favoritePokemon: ['1', '10', '40', '146'],
     });
   }
 }

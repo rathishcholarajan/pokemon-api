@@ -1,14 +1,11 @@
-import {
-  Filter,
-  repository
-} from '@loopback/repository';
+import {Filter, repository} from '@loopback/repository';
 import {
   del,
   get,
   getModelSchemaRef,
   HttpErrors,
   param,
-  put
+  put,
 } from '@loopback/rest';
 import {User} from '../models';
 import {UserRepository} from '../repositories';
@@ -37,9 +34,7 @@ export class UserController {
       },
     },
   })
-  async find(
-    @param.filter(User) filter?: Filter<User>,
-  ): Promise<User[]> {
+  async find(@param.filter(User) filter?: Filter<User>): Promise<User[]> {
     return this.userRepository.find(filter);
   }
 
@@ -57,7 +52,7 @@ export class UserController {
     @param.path.string('userId') userId: string,
     @param.path.string('pokemonId') pokemonId: string,
   ): Promise<void> {
-    let user = await this.userRepository.findById(userId);
+    const user = await this.userRepository.findById(userId);
     if (!user) {
       throw new HttpErrors.NotFound(`User not found for id: ${userId}`);
     }
@@ -84,15 +79,18 @@ export class UserController {
   })
   async unfavoritePokemonForUser(
     @param.path.string('userId') userId: string,
-    @param.path.string('pokemonId') pokemonId: string
+    @param.path.string('pokemonId') pokemonId: string,
   ): Promise<void> {
-    let user = await this.userRepository.findById(userId);
+    const user = await this.userRepository.findById(userId);
     if (!user) {
       throw new HttpErrors.NotFound(`User not found for id: ${userId}`);
     }
     // Unfavorite pokemon
-    if (user.favoritePokemon && Array.isArray(user.favoritePokemon) &&
-      user.favoritePokemon.includes(pokemonId)) {
+    if (
+      user.favoritePokemon &&
+      Array.isArray(user.favoritePokemon) &&
+      user.favoritePokemon.includes(pokemonId)
+    ) {
       user.favoritePokemon.splice(user.favoritePokemon.indexOf(pokemonId), 1);
     }
     await this.userRepository.updateById(userId, user);

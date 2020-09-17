@@ -1,11 +1,5 @@
-import {
-  Filter,
-  repository
-} from '@loopback/repository';
-import {
-  get,
-  getModelSchemaRef, param
-} from '@loopback/rest';
+import {Filter, repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param} from '@loopback/rest';
 import {PokemonType} from '../models';
 import {PokemonTypeRepository} from '../repositories';
 

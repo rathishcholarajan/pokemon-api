@@ -1,7 +1,4 @@
-import {
-  Filter,
-  repository
-} from '@loopback/repository';
+import {Filter, repository} from '@loopback/repository';
 import {get, getModelSchemaRef, HttpErrors, param} from '@loopback/rest';
 import {Pokemon} from '../models';
 import {PokemonRepository} from '../repositories';
@@ -54,7 +51,7 @@ export class PokemonController {
     },
   })
   async findByIdOrName(
-    @param.path.string('idOrName') idOrName: string
+    @param.path.string('idOrName') idOrName: string,
   ): Promise<Pokemon> {
     let key: string, query: object;
     if (isNaN(parseInt(idOrName))) {
@@ -65,11 +62,15 @@ export class PokemonController {
       query = {eq: idOrName};
     }
 
-    return this.pokemonRepository.findOne({where: {[key]: query}}).then(pokemon => {
-      if (!pokemon) {
-        throw new HttpErrors.NotFound(`Pokemon not found for ${key}: ${idOrName}.`);
-      }
-      return pokemon;
-    });
+    return this.pokemonRepository
+      .findOne({where: {[key]: query}})
+      .then(pokemon => {
+        if (!pokemon) {
+          throw new HttpErrors.NotFound(
+            `Pokemon not found for ${key}: ${idOrName}.`,
+          );
+        }
+        return pokemon;
+      });
   }
 }

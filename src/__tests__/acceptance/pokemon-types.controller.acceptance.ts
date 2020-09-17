@@ -12,8 +12,8 @@ describe('PokemonTypesController', () => {
   });
 
   before('setupDatabase', async () => {
-    clearDatabase();
-    setupDatabase();
+    await clearDatabase();
+    await setupDatabase();
   });
 
   after(async () => {
@@ -21,8 +21,7 @@ describe('PokemonTypesController', () => {
   });
 
   it('invokes GET /pokemon-types', async () => {
-    const res = await client.get(`/pokemon-types`)
-      .expect(200);
+    const res = await client.get(`/pokemon-types`).expect(200);
     expect(res.body).to.be.length(3);
     expect(res.body[0].name).to.equal('Grass');
     expect(res.body[1].name).to.equal('Poison');

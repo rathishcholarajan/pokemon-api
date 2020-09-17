@@ -1,6 +1,7 @@
 import {
-  Client, createRestAppClient,
-  givenHttpServerConfig
+  Client,
+  createRestAppClient,
+  givenHttpServerConfig,
 } from '@loopback/testlab';
 import {PokemonApplication} from '../..';
 import {testdb} from '../fixtures/datasources/testdb.datasource';
@@ -16,7 +17,7 @@ export async function setupApplication(): Promise<AppWithClient> {
 
   const app = new PokemonApplication({
     rest: restConfig,
-    databaseSeeding: false
+    databaseSeeding: false,
   });
 
   await app.boot();

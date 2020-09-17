@@ -1,7 +1,5 @@
 import {Entity, model, property} from '@loopback/repository';
-import {
-  PokemonAttack, PokemonDimension, PokemonEvolutionRequirement
-} from '.';
+import {PokemonAttack, PokemonDimension, PokemonEvolutionRequirement} from '.';
 
 @model({
   settings: {

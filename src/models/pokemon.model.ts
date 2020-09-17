@@ -6,7 +6,7 @@ import {
 @model({
   settings: {
     mongodb: {
-      collection: 'pokemon'
+      collection: 'pokemon',
     },
   },
 })

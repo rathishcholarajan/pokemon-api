@@ -9,7 +9,7 @@ import {
 import {ServiceMixin} from '@loopback/service-proxy';
 import fs from 'fs';
 import path from 'path';
-import {PokemonRepository} from './repositories';
+import {PokemonRepository, PokemonTypeRepository} from './repositories';
 import {MySequence} from './sequence';
 
 export {ApplicationConfig};
@@ -60,6 +60,7 @@ export class PokemonApplication extends BootMixin(
   async migrateSchema(options?: SchemaMigrationOptions) {
     await super.migrateSchema(options);
 
+    let pokemonTypes: string[] = [];
     // Pre-populate pokemon
     const pokemonRepo = await this.getRepository(PokemonRepository);
     await pokemonRepo.deleteAll();
@@ -68,7 +69,19 @@ export class PokemonApplication extends BootMixin(
     const pokemonArray = JSON.parse(pokemonJsonString);
 
     for (const pokemon of pokemonArray) {
+      if (pokemon.types && Array.isArray(pokemon.types)) {
+        pokemonTypes = pokemonTypes.concat(pokemon.types);
+      }
       await pokemonRepo.create(pokemon);
+    }
+
+    // Pre-populate pokemon types
+    const pokemonTypeRepo = await this.getRepository(PokemonTypeRepository);
+    await pokemonTypeRepo.deleteAll();
+    // Get unique pokemon types
+    pokemonTypes = [...new Set(pokemonTypes)];
+    for (const pokemonType of pokemonTypes) {
+      await pokemonTypeRepo.create({name: pokemonType});
     }
   }
 }

@@ -4,3 +4,4 @@ export * from './pokemon-dimension.model';
 export * from './pokemon-evolution-requirement.model';
 export * from './pokemon.model';
 
+export * from './pokemon-type.model';

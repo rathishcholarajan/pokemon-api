@@ -10,3 +10,7 @@
 2. `npm run docker:start` - start mongodb docker container.
 3. `npm start` - start pokemon API server.
 4. Visit http://localhost:3000 in browser.
+
+## Other useful commands
+1. `npm run test` - run acceptance tests
+2. `npm run docker:stop` - stop mongodb docker container

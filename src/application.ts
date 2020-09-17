@@ -9,7 +9,7 @@ import {
 import {ServiceMixin} from '@loopback/service-proxy';
 import fs from 'fs';
 import path from 'path';
-import {PokemonRepository, PokemonTypeRepository} from './repositories';
+import {PokemonRepository, PokemonTypeRepository, UserRepository} from './repositories';
 import {MySequence} from './sequence';
 
 export {ApplicationConfig};
@@ -83,5 +83,14 @@ export class PokemonApplication extends BootMixin(
     for (const pokemonType of pokemonTypes) {
       await pokemonTypeRepo.create({name: pokemonType});
     }
+
+    // Pre-populate with one user to demonstrate favorite pokemon feature
+    const userRepo = await this.getRepository(UserRepository);
+    await userRepo.deleteAll();
+    await userRepo.create({
+      firstName: "John",
+      lastName: "Doe",
+      favoritePokemon: ["1", "10", "40", "146"]
+    });
   }
 }

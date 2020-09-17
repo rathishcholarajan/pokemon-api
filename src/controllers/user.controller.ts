@@ -58,13 +58,16 @@ export class UserController {
     @param.path.string('pokemonId') pokemonId: string,
   ): Promise<void> {
     let user = await this.userRepository.findById(userId);
-    if (user) {
-      // Favorite pokemon
-      if (user.favoritePokemon && Array.isArray(user.favoritePokemon)) {
+    if (!user) {
+      throw new HttpErrors.NotFound(`User not found for id: ${userId}`);
+    }
+    // Favorite pokemon
+    if (user.favoritePokemon && Array.isArray(user.favoritePokemon)) {
+      if (!user.favoritePokemon.includes(pokemonId)) {
         user.favoritePokemon.push(pokemonId);
-      } else {
-        user.favoritePokemon = [pokemonId];
       }
+    } else {
+      user.favoritePokemon = [pokemonId];
     }
     await this.userRepository.updateById(userId, user);
   }
@@ -88,7 +91,8 @@ export class UserController {
       throw new HttpErrors.NotFound(`User not found for id: ${userId}`);
     }
     // Unfavorite pokemon
-    if (user.favoritePokemon && Array.isArray(user.favoritePokemon)) {
+    if (user.favoritePokemon && Array.isArray(user.favoritePokemon) &&
+      user.favoritePokemon.includes(pokemonId)) {
       user.favoritePokemon.splice(user.favoritePokemon.indexOf(pokemonId), 1);
     }
     await this.userRepository.updateById(userId, user);
